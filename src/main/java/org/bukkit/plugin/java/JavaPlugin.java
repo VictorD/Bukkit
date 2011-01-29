@@ -2,8 +2,13 @@
 package org.bukkit.plugin.java;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.Server;
+import org.bukkit.command.BaseCommandMap;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -22,6 +27,7 @@ public abstract class JavaPlugin implements Plugin {
     private final File dataFolder;
     private final ClassLoader classLoader;
     private final Configuration config;
+    private final Map<String, Command> pluginCommands = new HashMap<String, Command>();
 
     /**
      * Constructs a new Java plugin instance
@@ -144,5 +150,13 @@ public abstract class JavaPlugin implements Plugin {
      */
     public boolean onCommand(Player player, Command cmd, String commandLabel, String[] args) {
         return false; // default implementation:  do nothing!
+    }
+
+    public Command getCommand(String name) {
+        return pluginCommands.get(name);
+    }
+    
+    public void register(Command command) {
+        pluginCommands.put(command.getName(), command);
     }
 }

@@ -64,10 +64,12 @@ public interface Plugin {
      */
     public void onEnable();
     
+    public boolean onCommand(Player player, Command cmd, String commandLabel, String[] args);
+    
     /**
-     * Called when a command registered by this plugin is received.
-     * @param commandLabel 
-     * @return TODO
+     * Get the command for a given command name, returns null if plugin does not have such a command.
+     * @param name
+     * @return
      */
-    public boolean onCommand(Player player, Command command, String commandLabel, String[] args);
+    public Command getCommand(String name);
 }
